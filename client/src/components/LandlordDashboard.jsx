@@ -53,7 +53,7 @@ export default function LandlordDashboard({ properties, leases, totalRevenue }) 
                 <p className="card-location">📍 {item.address}</p>
                 <div className="card-footer">
                   <div>
-                    <span className="card-price-amount">KSh {item.price.toLocaleString()}</span>
+                    <span className="card-price-amount">KSh {Number(item?.price || 0).toLocaleString()}</span>
                     <span className="card-price-period"> / mo</span>
                   </div>
                   <button className="btn-primary" style={{ padding: '0.4rem 0.9rem', fontSize: '0.8rem' }}>Edit Listing</button>
@@ -80,7 +80,7 @@ export default function LandlordDashboard({ properties, leases, totalRevenue }) 
                   <tr key={lease.id}>
                     <td style={{ fontWeight: 600 }}>{lease.property_title}</td>
                     <td>{lease.tenant_name}</td>
-                    <td style={{ color: 'var(--primary)', fontWeight: 600 }}>KSh {lease.monthly_rent.toLocaleString()}/mo</td>
+                    <td style={{ color: 'var(--primary)', fontWeight: 600 }}>KSh {Number(lease?.monthly_rent || 0).toLocaleString()}/mo</td>
                     <td style={{ color: 'var(--text-muted)' }}>{lease.start_date} to {lease.end_date}</td>
                     <td><span className={`status-badge ${lease.status}`}>{lease.status}</span></td>
                   </tr>

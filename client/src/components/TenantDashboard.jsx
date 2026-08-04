@@ -19,7 +19,7 @@ export default function TenantDashboard({ user, property }) {
       <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-title">Monthly Rent Due</div>
-          <div className="stat-number">KSh {property.price.toLocaleString()}</div>
+          <div className="stat-number">KSh {Number(property?.price || 0).toLocaleString()}</div>
           <div className="stat-trend" style={{ color: 'var(--primary)' }}>Due: 1st of every month</div>
         </div>
         <div className="stat-card">

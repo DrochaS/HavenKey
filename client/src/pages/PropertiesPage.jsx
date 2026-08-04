@@ -20,7 +20,7 @@ export default function PropertiesPage() {
         <section className="analytics-cards">
           <article className="card">
             <h2>Active Monthly Revenue</h2>
-            <p>${metrics.total_monthly_revenue.toLocaleString()}</p>
+            <p>${Number(metrics?.total_monthly_revenue || 0).toLocaleString()}</p>
           </article>
           <article className="card">
             <h2>Active Leases</h2>
