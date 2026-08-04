@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const BASE_URL = 'http://127.0.0.1:5555';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5555';
 
 export function useAuth() {
   const [currentUser, setCurrentUser] = useState(null);
