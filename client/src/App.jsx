@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar currentUser={currentUser} logout={logout} />
       <main className="main-container">
         <Routes>
           <Route
