@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function TenantDashboard({ user, property }) {
+  const navigate = useNavigate();
   if (!property) {
     return (
       <div className="loading-state">
@@ -48,7 +50,7 @@ export default function TenantDashboard({ user, property }) {
             <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
               Includes 2 Bedrooms, Executive Finishings, Fast Fiber WiFi, and 24/7 Security.
             </p>
-            <button className="btn-primary" style={{ padding: '0.75rem 1.5rem' }}>
+            <button className="btn-primary" style={{ padding: '0.75rem 1.5rem' }} onClick={() => navigate('/tenant-actions')}>
               Pay Rent / Request Maintenance
             </button>
           </div>

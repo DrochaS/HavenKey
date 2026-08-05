@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { useProperties } from './hooks/useProperties';
 import LoginForm from './components/LoginForm';
+import Navbar from './components/Navbar';
 import LandlordDashboard from './components/LandlordDashboard';
 import TenantDashboard from './components/TenantDashboard';
+import LeasesPage from './pages/LeasesPage';
+import TenantActionsPage from './pages/TenantActionsPage';
+import EditPropertyPage from './pages/EditPropertyPage';
 
 export default function App() {
   const { currentUser, loginRole, setLoginRole, login, logout } = useAuth();
@@ -14,28 +19,27 @@ export default function App() {
     return <LoginForm loginRole={loginRole} setLoginRole={setLoginRole} onLogin={login} />;
   }
 
-  const isLandlord = currentUser.role?.toLowerCase() === 'landlord';
-
   return (
-    <div>
-      <header className="navbar">
-        <div className="brand">Haven<span>Key</span></div>
-        <div className="user-badge">
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{currentUser.name}</div>
-            <span className="user-role-tag">{currentUser.role}</span>
-          </div>
-          <button className="btn-logout" onClick={logout}>Sign Out</button>
-        </div>
-      </header>
-
+    <BrowserRouter>
+      <Navbar />
       <main className="main-container">
-        {isLandlord ? (
-          <LandlordDashboard properties={properties} leases={leases} totalRevenue={totalRevenue} />
-        ) : (
-          <TenantDashboard user={currentUser} property={properties[0] || {}} />
-        )}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              currentUser.role === 'landlord' ? (
+                <LandlordDashboard properties={properties} leases={leases} totalRevenue={totalRevenue} />
+              ) : (
+                <TenantDashboard user={currentUser} property={properties[0]} />
+              )
+            }
+          />
+          <Route path="/leases" element={<LeasesPage />} />
+          <Route path="/tenant-actions" element={<TenantActionsPage user={currentUser} property={properties[0]} />} />
+          <Route path="/edit-property/:id" element={<EditPropertyPage properties={properties} />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
-    </div>
+    </BrowserRouter>
   );
 }

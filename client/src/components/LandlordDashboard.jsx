@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LandlordDashboard({ properties, leases, totalRevenue }) {
   const [activeTab, setActiveTab] = useState('properties');
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -56,7 +58,13 @@ export default function LandlordDashboard({ properties, leases, totalRevenue }) 
                     <span className="card-price-amount">KSh {Number(item?.price || 0).toLocaleString()}</span>
                     <span className="card-price-period"> / mo</span>
                   </div>
-                  <button className="btn-primary" style={{ padding: '0.4rem 0.9rem', fontSize: '0.8rem' }}>Edit Listing</button>
+                  <button
+                    className="btn-primary"
+                    style={{ padding: '0.4rem 0.9rem', fontSize: '0.8rem' }}
+                    onClick={() => navigate(`/edit-property/${item.id}`)}
+                  >
+                    Edit Listing
+                  </button>
                 </div>
               </div>
             </div>
